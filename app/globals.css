@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gc-bg-dark: var(--gc-bg-dark);
+  --color-gc-bg-card: var(--gc-bg-card);
+  --color-gc-bg-input: var(--gc-bg-input);
+  --color-gc-border: var(--gc-border);
+  --color-gc-border-focus: var(--gc-border-focus);
+  --color-gc-accent: var(--gc-accent);
+  --color-gc-text-primary: var(--gc-text-primary);
+  --color-gc-text-secondary: var(--gc-text-secondary);
+  --color-gc-success: var(--gc-success);
+  --color-gc-error: var(--gc-error);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+:root {
+  --gc-bg-dark: rgb(17, 24, 39);
+  --gc-bg-card: rgb(33, 37, 41);
+  --gc-bg-input: rgb(55, 65, 81);
+  --gc-border: rgb(75, 85, 99);
+  --gc-border-focus: rgb(251, 191, 36);
+  --gc-accent: rgb(217, 119, 6);
+  --gc-text-primary: rgb(248, 249, 250);
+  --gc-text-secondary: rgb(163, 163, 163);
+  --gc-success: #22c55e;
+  --gc-error: #f87171;
+
+  --background: var(--gc-bg-dark);
+  --foreground: var(--gc-text-primary);
+  --card: var(--gc-bg-card);
+  --card-foreground: var(--gc-text-primary);
+  --popover: var(--gc-bg-card);
+  --popover-foreground: var(--gc-text-primary);
+  --primary: var(--gc-accent);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: var(--gc-bg-input);
+  --secondary-foreground: var(--gc-text-primary);
+  --muted: var(--gc-bg-input);
+  --muted-foreground: var(--gc-text-secondary);
+  --accent: rgb(51, 51, 51);
+  --accent-foreground: var(--gc-text-primary);
+  --destructive: var(--gc-error);
+  --border: var(--gc-border);
+  --input: var(--gc-bg-input);
+  --ring: var(--gc-border-focus);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
