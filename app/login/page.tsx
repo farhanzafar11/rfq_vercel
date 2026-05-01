@@ -1,16 +1,10 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import Image from "next/image";
 
 import { CredentialsForm } from "./CredentialsForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function LoginPage() {
-  const session = await auth();
-
-  if (session) {
-    redirect("/dashboard");
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center p-4 bg-gc-bg-dark">
       <div className="w-full max-w-sm border border-gc-border bg-gc-bg-card rounded-2xl shadow-xl flex flex-col p-8 items-center text-center">
