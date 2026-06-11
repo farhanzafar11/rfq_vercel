@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef } from "react";
 import { UploadCloud, File as FileIcon, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface UploadCardProps {
-  onStatusChange: (status: "idle" | "uploading" | "success" | "error", message?: string) => void;
+  onStatusChange: (status: "idle" | "uploading" | "success" | "error", message?: string, data?: Record<string, unknown> | null) => void;
   isUploading: boolean;
 }
 
@@ -71,7 +70,10 @@ export function UploadCard({ onStatusChange, isUploading }: UploadCardProps) {
       if (!res.ok) {
         onStatusChange("error", data.error || "Failed to upload BOQ.");
       } else {
-        onStatusChange("success", data.message);
+        // Pass the full response object so the dashboard can display all webhook fields
+        const { message, ...rest } = data;
+        const responseData = Object.keys(rest).length > 0 ? rest : null;
+        onStatusChange("success", message, responseData);
         setFile(null);
       }
     } catch (err) {
@@ -80,10 +82,10 @@ export function UploadCard({ onStatusChange, isUploading }: UploadCardProps) {
   };
 
   return (
-    <div className="bg-gc-bg-card border border-gc-border rounded-xl p-6 shadow-sm flex flex-col gap-6">
+    <div className="bg-white border border-[var(--gc-gray-200)] rounded-[0.75rem] p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)] flex flex-col gap-6">
       <div 
-        className={`border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center transition-colors text-center cursor-pointer
-          ${isDragOver ? "border-gc-border-focus bg-gc-border-focus/5" : "border-gc-border hover:border-gc-text-secondary/50"}
+        className={`border-2 border-dashed rounded-[0.5rem] p-10 flex flex-col items-center justify-center transition-all duration-150 text-center cursor-pointer
+          ${isDragOver ? "border-[var(--gc-orange-500)] bg-[var(--gc-orange-50)]" : "border-[var(--gc-gray-300)] hover:border-[var(--gc-orange-500)] hover:bg-[var(--gc-orange-50)]"}
         `}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -100,15 +102,15 @@ export function UploadCard({ onStatusChange, isUploading }: UploadCardProps) {
         
         {file ? (
           <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gc-bg-input flex items-center justify-center">
-              <FileIcon className="w-6 h-6 text-gc-accent" />
+            <div className="w-12 h-12 rounded-full bg-[var(--gc-orange-50)] flex items-center justify-center">
+              <FileIcon className="w-6 h-6 text-[var(--gc-orange-500)]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gc-text-primary">{file.name}</p>
-              <p className="text-xs text-gc-text-secondary mt-1">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+              <p className="text-[14px] font-medium text-[var(--gc-gray-900)]">{file.name}</p>
+              <p className="text-[12px] text-[var(--gc-gray-500)] mt-1">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
             </div>
             <button 
-              className="mt-2 text-xs text-gc-error hover:text-red-400 font-medium flex items-center gap-1"
+              className="mt-2 text-[13px] text-[var(--gc-gray-500)] hover:text-[var(--gc-error)] font-medium flex items-center gap-1 transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 setFile(null);
@@ -116,29 +118,29 @@ export function UploadCard({ onStatusChange, isUploading }: UploadCardProps) {
                 if (inputRef.current) inputRef.current.value = "";
               }}
             >
-              <X className="w-3 h-3" /> Remove File
+              <X className="w-4 h-4" /> Remove
             </button>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-gc-bg-input flex items-center justify-center mb-2">
-              <UploadCloud className="w-6 h-6 text-gc-text-secondary" />
-            </div>
-            <p className="text-sm text-gc-text-secondary">
-              Drag & drop your PDF here, or <span className="text-gc-accent font-medium hover:underline">Browse files</span>
+            <UploadCloud size={48} className="text-[var(--gc-orange-500)] mb-2" />
+            <p className="text-[16px] font-medium text-[var(--gc-gray-900)]">
+              Drag & drop your BOQ PDF here
             </p>
-            <p className="text-xs text-gc-text-secondary/70 mt-1">Max 20 MB</p>
+            <p className="text-[14px] text-[var(--gc-gray-500)]">
+              or click to browse — max 20MB
+            </p>
           </div>
         )}
       </div>
 
-      <Button 
+      <button 
         onClick={handleSubmit} 
         disabled={!file || isUploading}
-        className="w-full bg-gc-accent hover:bg-orange-600 text-white font-medium py-6"
+        className="w-full h-[44px] bg-[var(--gc-orange-500)] hover:bg-[var(--gc-orange-600)] text-white rounded-lg px-4 text-[14px] font-semibold transition-colors duration-150 disabled:opacity-50 flex items-center justify-center"
       >
-        {isUploading ? "Uploading..." : "Submit BOQ"}
-      </Button>
+        {isUploading ? "Processing your BOQ..." : "Generate Quote"}
+      </button>
     </div>
   );
 }

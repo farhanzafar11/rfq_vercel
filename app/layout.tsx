@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} dark h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
+      <body className="min-h-full flex flex-col font-sans bg-[var(--gc-gray-50)] text-[var(--gc-gray-700)]">
         <SessionProvider>
           {children}
         </SessionProvider>
