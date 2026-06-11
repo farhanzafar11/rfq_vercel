@@ -20,7 +20,7 @@ export default async function LoginPage() {
         
         <div className="relative z-10">
           <Image 
-            src="/logo.svg" 
+            src="/garaj-logo.svg" 
             alt="GarajCloud" 
             width={160} 
             height={40} 
@@ -67,7 +67,7 @@ export default async function LoginPage() {
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center text-center mb-8">
             <Image 
-              src="/logo.svg" 
+              src="/garaj-logo.svg" 
               alt="GarajCloud" 
               width={120} 
               height={30} 

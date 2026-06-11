@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="hidden md:flex flex-col w-[240px] bg-[var(--gc-navy-800)] text-white border-r border-[var(--gc-navy-700)] flex-shrink-0">
         <div className="p-6">
           <Image 
-            src="/logo.svg" 
+            src="/garaj-logo.svg" 
             alt="GarajCloud" 
             width={140} 
             height={32} 
@@ -121,7 +121,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="fixed inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
           <aside className="relative flex-1 w-full max-w-[240px] bg-[var(--gc-navy-800)] text-white flex flex-col">
             <div className="p-6">
-              <Image src="/logo.svg" alt="GarajCloud" width={140} height={32} className="logo-on-dark" />
+              <Image src="/garaj-logo.svg" alt="GarajCloud" width={140} height={32} className="logo-on-dark" />
             </div>
             <nav className="flex-1 px-4 py-4 space-y-1">
               {navLinks.map((link) => {
